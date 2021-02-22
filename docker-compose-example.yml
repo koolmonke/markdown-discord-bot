@@ -1,0 +1,6 @@
+services:
+  discord-service:
+    build: .
+    environment:
+      DISCORD_TOKEN: token
+    restart: always
