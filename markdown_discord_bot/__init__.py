@@ -85,14 +85,14 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.attachments:
-        ext = message.attachments[0].filename.split('.')[1]
-        if ext in EXTS:
-            print(f'Got {message.attachments[0].filename}')
-            file_content = (await message.attachments[0].read()).decode()
-            try:
+        if message.attachments[0].size <= 2000:
+            ext = message.attachments[0].filename.split('.')[1]
+            if ext in EXTS:
+                print(f'Got {message.attachments[0].filename}')
+                file_content = (await message.attachments[0].read()).decode()
                 await message.channel.send(f"```{ext}\n{file_content}\n```")
-            except discord.errors.HTTPException:
-                await message.channel.send("Слишком большой файл. Невозможно отправить в качестве одного сообщения")
+        else:
+            await message.channel.send("Слишком большой файл. Невозможно отправить в качестве одного сообщения")
 
 
 def main():
