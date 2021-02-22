@@ -76,7 +76,7 @@ EXTS = {'bib', 'for', 'sublime-menu', 'xrl', 'c-objdump', 'njs', 'rabl', 'vshade
 client = discord.Client()
 
 
-async def fetch_text(session, url):
+async def fetch_text(session: aiohttp.ClientSession, url: str):
     async with session.get(url) as response:
         return await response.text()
 
