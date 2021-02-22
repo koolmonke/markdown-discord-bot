@@ -87,7 +87,7 @@ async def on_message(message):
     if message.attachments:
         ext = message.attachments[0].filename.split('.')[1]
         if ext in EXTS:
-            if (message.attachments[0].size + len(ext) + 8) <= 2000:
+            if (message.attachments[0].size + len(ext) + 8) <= 2000:  # 8 is len(```) x2+\n x2 in bytes
                 print(f'Got {message.attachments[0].filename}')
                 file_content = (await message.attachments[0].read()).decode()
                 await message.channel.send(f"```{ext}\n{file_content}\n```")
