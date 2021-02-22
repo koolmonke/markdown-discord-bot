@@ -85,14 +85,15 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.attachments:
-        if message.attachments[0].size <= 2000:
-            ext = message.attachments[0].filename.split('.')[1]
-            if ext in EXTS:
+        ext = message.attachments[0].filename.split('.')[1]
+        if ext in EXTS:
+            if (message.attachments[0].size + len(ext) + 8) <= 2000:
                 print(f'Got {message.attachments[0].filename}')
                 file_content = (await message.attachments[0].read()).decode()
                 await message.channel.send(f"```{ext}\n{file_content}\n```")
-        else:
-            await message.channel.send("Слишком большой файл. Невозможно отправить в качестве одного сообщения")
+            else:
+                await message.channel.send(
+                    "Слишком большой файл. Невозможно отправить в качестве одного сообщения")
 
 
 def main():
