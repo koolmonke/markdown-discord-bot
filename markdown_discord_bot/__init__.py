@@ -1,4 +1,3 @@
-import aiohttp
 # noinspection PyPackageRequirements
 import discord
 
@@ -76,11 +75,6 @@ EXTS = {'bib', 'for', 'sublime-menu', 'xrl', 'c-objdump', 'njs', 'rabl', 'vshade
 client = discord.Client()
 
 
-async def fetch_text(session: aiohttp.ClientSession, url: str):
-    async with session.get(url) as response:
-        return await response.text()
-
-
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
@@ -91,16 +85,14 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.attachments:
-        print(f'Got {message.attachments[0].filename}')
         ext = message.attachments[0].filename.split('.')[1]
         if ext in EXTS:
-            url = message.attachments[0].url
-            async with aiohttp.ClientSession() as session:
-                response_text = await fetch_text(session, url)
-                try:
-                    await message.channel.send(f"```{ext}\n{response_text}\n```")
-                except discord.errors.HTTPException:
-                    await message.channel.send("Слишком большой файл. Невозможно отправить в качестве одного сообщения")
+            print(f'Got {message.attachments[0].filename}')
+            file_content = (await message.attachments[0].read()).decode()
+            try:
+                await message.channel.send(f"```{ext}\n{file_content}\n```")
+            except discord.errors.HTTPException:
+                await message.channel.send("Слишком большой файл. Невозможно отправить в качестве одного сообщения")
 
 
 def main():

@@ -7,7 +7,6 @@ authors = ["Artur Khakimov <verybigfolder@yandex.ru>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 "discord.py" = "^1.6.0"
-asyncio = "^3.4.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
