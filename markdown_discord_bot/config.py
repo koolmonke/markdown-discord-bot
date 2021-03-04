@@ -761,7 +761,6 @@ EXTS = {
     "rbmnu",
     "self",
     "aspx",
-    "svg",
     "gi",
     "flex",
     "ily",
