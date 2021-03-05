@@ -681,7 +681,6 @@ EXTS = {
     "pov",
     "scm",
     "cql",
-    "ipynb",
     "topojson",
     "scxml",
     "csl",
