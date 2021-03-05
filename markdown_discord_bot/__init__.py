@@ -7,7 +7,7 @@ client = discord.Client()
 
 
 def split_with_char_limit(string: str, max_size: int):
-    return ((string[i:i + max_size]) for i in range(0, len(string), max_size))
+    return (string[i:i + max_size] for i in range(0, len(string), max_size))
 
 
 @client.event
