@@ -24,8 +24,10 @@ async def on_message(message):
         if ext in config.EXTS:
             print(f"Got {message.attachments[0].filename} from {message.author}")
             file_content = (await message.attachments[0].read()).decode()
-            for part in split_with_char_limit(file_content, 1900):
-                await message.channel.send(f"{message.attachments[0].filename}\n```{ext}\n{part}\n```")
+            for part in split_with_char_limit(file_content, 1992 - len(ext)):
+                full_message = f"```{ext}\n{part}\n```"
+                print(f"{len(full_message)=}")
+                await message.channel.send(full_message)
 
 
 def main():
