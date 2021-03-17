@@ -3,6 +3,8 @@ import discord
 
 from markdown_discord_bot import config
 
+DISCORD_MESSAGE_MAX_SIZE = 2000
+
 client = discord.Client()
 
 
@@ -25,7 +27,8 @@ async def on_message(message):
             print(f"Got {message.attachments[0].filename} from {message.author}")
             file_content = (await message.attachments[0].read()).decode()
             is_first = True
-            for part in split_with_char_limit(file_content, 1992 - len(ext)):
+            maximum_message_size = DISCORD_MESSAGE_MAX_SIZE - 8 - len(ext)  # 8 - len(ext) is markdown overhead
+            for part in split_with_char_limit(file_content, maximum_message_size):
                 full_message = f"```{ext}\n{part}\n```"
                 print(f"{len(full_message)=}")
                 if is_first:
