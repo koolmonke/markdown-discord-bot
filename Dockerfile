@@ -53,7 +53,9 @@ RUN poetry install --no-dev
 
 # `production` image used for runtime
 FROM python-base as production
+RUN useradd --create-home markdown-bot
+USER markdown-bot
+WORKDIR /home/markdown-bot
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY ./markdown_discord_bot /markdown_discord_bot/
-WORKDIR /
+COPY ./markdown_discord_bot ./markdown_discord_bot/
 CMD ["python", "-m", "markdown_discord_bot"]
