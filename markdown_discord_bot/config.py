@@ -528,7 +528,6 @@ EXTS = {
     "e",
     "vim",
     "veo",
-    "md",
     "nuspec",
     "hbs",
     "a51",
