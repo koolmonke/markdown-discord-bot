@@ -23,7 +23,7 @@ async def on_message(message):
             file_content = (await message.attachments[0].read()).decode()
             maximum_message_size = DISCORD_MESSAGE_MAX_SIZE - 8 - len(ext)  # 8 - len(ext) is markdown overhead
             full_message = f"```{ext}\n{file_content[:maximum_message_size]}\n```"
-            print(f"Got {message.attachments[0].filename} from {message.author} {len(full_message)=}")
+            print(f"Got {message.attachments[0].filename} from {message.author} with {len(full_message)=}")
             await message.reply(full_message)
 
 
